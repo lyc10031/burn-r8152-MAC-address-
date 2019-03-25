@@ -1,0 +1,16 @@
+#!/bin/bash
+
+rmmod r8152
+
+insmod ./r8152.ko
+
+./rtunicpg-x86_64 /# 0 /efuse /nodeid  A098051A01A7
+
+if [[ $? -eq 0 ]];then
+	echo "mac burn ok"
+		exit 0
+else 
+	echo "mac burn failed"
+		exit 1
+
+fi
