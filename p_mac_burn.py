@@ -10,7 +10,7 @@ import time
 def call_func(eth_num,mac_list):
 	"""
 	
-	Description:excute command。
+	Description:excute command 
 	args: eth_num ,mac_list
 		eth_num: the number of network interface
 		mac_list: mac address list
