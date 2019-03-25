@@ -35,25 +35,30 @@ def calc_mac(mac,t):
  
 		return: mac_list
 	"""
-	*base_num,last_two = mac.split(':')
-	mac_list = [mac]
+	base_num= mac.split(':')[:-2]
+	last_four = mac.split(":")[-2:]
+	last_four = ''.join(last_four)
+	mac_list = []
 	for i in range(int(t)):
 		if i == 0:
-			new_last = hex(int(last_two,16)+1)
+			new_last = hex(int(last_four,16)+1)
 			if len(str(new_last)) == 1:
 				new_last = '0' + new_last
-			new = ':'.join(base_num)+':'+new_last.split('x')[1]
-			# print(new)
+			new_last_four = new_last.split('x')[1]
+			new = ':'.join(base_num)+':'+ new_last_four[0:2] + ":" + new_last_four[2:]
+			# print("0")
 			mac_list.append(new)
 		else:
-			new_last = hex(int(new[-2:],16)+1)
+			new_last = hex(int(new_last_four,16)+1)
 			if len(str(new_last)) == 1:
 				new_last = '0' + new_last
-			new = ':'.join(base_num)+':'+new_last.split('x')[1]	
-			# print(new)		
+			new_last_four = new_last.split('x')[1]
+			new = ':'.join(base_num)+':'+ new_last_four[0:2] + ":" + new_last_four[2:]
+			# print(new)
 			mac_list.append(new)
 #	print(mac_list)
 	return mac_list
+
 
 
 def current_mac(status,future_mac=None):
