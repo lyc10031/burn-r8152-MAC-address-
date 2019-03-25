@@ -8,15 +8,21 @@ import time
 
 
 def call_func(eth_num,mac_list):
-    for i,j in zip(range(eth_num),mac_list):
+	"""
+	
+	Description:excute command。
+	args: eth_num ,mac_list
+		eth_num: the number of network interface
+		mac_list: mac address list
+ 
+	"""
+	for i,j in zip(range(eth_num),mac_list):
 #	command = 'ls && date'
 # 	result = subprocess.call(command,shell=True,stdout=subprocess.PIPE)
 	command = f"rmmod r8152 && insmod burn_tools/r8152.ko && burn_tools/rtunicpg-x86_64 /# {i} /efuse /nodeid  {j}"
-	result = subprocess.call(command,shell=True,stdout=subprocess.PIPE)
-	print(result)
-
-
-
+#	result = subprocess.call(command,shell=True,stdout=subprocess.PIPE)
+	result = subprocess.call(command,shell=True)
+#	print(result)
 
 
 def calc_mac(mac,t):
@@ -56,7 +62,7 @@ def current_mac(status,future_mac=None):
 
     args: status,future_mac
        status: "r":read mac address from current_mac.conf
-               "w":write write mac address to current_mac.conf
+               "w":write mac address to current_mac.conf
        future_mac: r -> None ,w -> Future MAC address
 
     return:  
@@ -80,12 +86,12 @@ def current_mac(status,future_mac=None):
 
 def main(t):
     mac = current_mac("r") # read current mac address from current_mac.conf
-    mac_list = calc_mac(mac,t)
-    call_func(t,mac_list[:-1],)
+    mac_list = calc_mac(mac,t) # calcate the mac address 
+    call_func(t,mac_list[:-1],) # excute command burn mac address to r8152 chip
     current_mac('w',mac_list[-1]) # write future mac address to current_mac.conf
 	
 if __name__ == '__main__':
-#	mac = 'A0:98:05:02:B0:0F'
+#	mac = 'A0:98:05:02:B0:0F' 
     args = sys.argv
     if len(args) != 2:
         print('Usage: \033[1;34;40mpython3 p_mac_burn.py (Number of network interfaces) \033[0m')
