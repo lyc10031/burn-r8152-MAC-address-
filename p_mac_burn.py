@@ -38,7 +38,7 @@ def calc_mac(mac,t):
 	base_num= mac.split(':')[:-2]
 	last_four = mac.split(":")[-2:]
 	last_four = ''.join(last_four)
-	mac_list = []
+	mac_list = [mac]
 	for i in range(int(t)):
 		if i == 0:
 			new_last = hex(int(last_four,16)+1)
