@@ -19,9 +19,9 @@ def call_func(eth_num,mac_list):
 	for i,j in zip(range(eth_num),mac_list):
 #	command = 'ls && date'
 # 	result = subprocess.call(command,shell=True,stdout=subprocess.PIPE)
-	command = f"rmmod r8152 && insmod burn_tools/r8152.ko && burn_tools/rtunicpg-x86_64 /# {i} /efuse /nodeid  {j}"
+		command = f"rmmod r8152 && insmod burn_tools/r8152.ko && burn_tools/rtunicpg-x86_64 /# {i} /efuse /nodeid  {j}"
 #	result = subprocess.call(command,shell=True,stdout=subprocess.PIPE)
-	result = subprocess.call(command,shell=True)
+		result = subprocess.call(command,shell=True)
 #	print(result)
 
 
